@@ -392,13 +392,9 @@ int jsonrpc_tool_call_decode(const jsonrpc_t *jsonrpc, char **function_name,
     if (json_args == NULL || !cJSON_IsObject(json_args)) {
         return -3;
     }
-    cJSON *json_kwargs = cJSON_GetObjectItem(json_args, "kwargs");
-    if (json_kwargs == NULL || !cJSON_IsObject(json_kwargs)) {
-        return -10;
-    }
 
     *n_args        = 0;
-    cJSON *current = json_kwargs->child;
+    cJSON *current = json_args->child;
     while (current != NULL) {
         (*n_args)++;
         *args = realloc(*args, (*n_args) * sizeof(property_t));

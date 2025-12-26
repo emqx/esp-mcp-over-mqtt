@@ -365,7 +365,7 @@ static bool mcp_server_tool_check(mcp_server_t *server, const char *tool_name,
                                   int n_args, property_t *args,
                                   mcp_tool_t **tool)
 {
-    if (server == NULL || tool_name == NULL || args == NULL || n_args <= 0) {
+    if (server == NULL || tool_name == NULL) {
         return false; // Invalid parameters
     }
 
@@ -529,12 +529,14 @@ static void event_handler(void *args, esp_event_base_t base, int32_t event_id,
                             id, -32601, "Method not found"));
                     }
 
-                    for (int i = 0; i < server->n_tools; i++) {
+                    for (int i = 0; i < n_args; i++) {
                         if (args[i].type == PROPERTY_STRING) {
                             free(args[i].value.string_value);
                         }
                     }
-                    free(args);
+		    if (n_args > 0 && args) {
+                    	free(args);
+		    }
                 }
             }
             if (strcmp(method, "resources/list") == 0) {
