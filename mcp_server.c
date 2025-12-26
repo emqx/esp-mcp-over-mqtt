@@ -534,9 +534,9 @@ static void event_handler(void *args, esp_event_base_t base, int32_t event_id,
                             free(args[i].value.string_value);
                         }
                     }
-		    if (n_args > 0 && args) {
-                    	free(args);
-		    }
+		    		if (n_args > 0 && args) {
+						free(args);
+		    		}
                 }
             }
             if (strcmp(method, "resources/list") == 0) {
